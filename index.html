@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <title>Configuring for GPS Location and Time Synchronization</title>
+  
+
+  <link rel="shortcut icon" href="./img/favicon.ico">
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="./css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="./css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="./css/highlight.css">
+
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "None";
+    var mkdocs_page_input_path = "index.md";
+    var mkdocs_page_url = "/";
+  </script>
+  
+  <script src="./js/jquery-2.1.1.min.js"></script>
+  <script src="./js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="./js/highlight.pack.js"></script>
+  <script src="./js/theme.js"></script> 
+
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="." class="icon icon-home"> Configuring for GPS Location and Time Synchronization</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul class="current">
+          
+            <li>
+    <li class="toctree-l1 current">
+        <a class="current" href=".">Home</a>
+        
+            <ul>
+            
+                <li class="toctree-l3"><a href="#configuring-for-gps-location-and-time-synchronization">Configuring for GPS Location and Time Synchronization</a></li>
+                
+                    <li><a class="toctree-l4" href="#network-time-protocol-ntp">Network Time Protocol (NTP)</a></li>
+                
+                    <li><a class="toctree-l4" href="#need-for-time-synchronization">Need for time synchronization</a></li>
+                
+                    <li><a class="toctree-l4" href="#importance-of-time-synchronization">Importance of Time Synchronization</a></li>
+                
+                    <li><a class="toctree-l4" href="#basic-features-of-ntp">Basic Features of NTP</a></li>
+                
+                    <li><a class="toctree-l4" href="#installing-and-configuring-ntp-for-gps-nmea-and-pps">Installing and Configuring NTP for GPS NMEA and PPS</a></li>
+                
+                    <li><a class="toctree-l4" href="#installing-ntp-and-setting-up-a-ntp-server">Installing NTP and setting up a NTP server</a></li>
+                
+                    <li><a class="toctree-l4" href="#basic-initial-configuration">Basic initial configuration:</a></li>
+                
+                    <li><a class="toctree-l4" href="#configuring-gps-nmea-uart-port-and-pps-gpio-to-work-with-navika-10-gps-module">Configuring GPS NMEA UART port and PPS GPIO to work with Navika 10 GPS Module</a></li>
+                
+                    <li><a class="toctree-l4" href="#using-xgps-and-gpsd-to-work-with-navika">Using Xgps and Gpsd to work with Navika</a></li>
+                
+                    <li><a class="toctree-l4" href="#statistics-collection">Statistics collection</a></li>
+                
+                    <li><a class="toctree-l4" href="#note-on-ntpd-and-its-settings">Note on NTPd and its settings</a></li>
+                
+            
+            </ul>
+        
+    </li>
+<li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href=".">Configuring for GPS Location and Time Synchronization</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Home</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="configuring-for-gps-location-and-time-synchronization">Configuring for GPS Location and Time Synchronization</h1>
+<h2 id="network-time-protocol-ntp">Network Time Protocol (NTP)</h2>
+<p>NTP is a time synchronizing protcol.It synchronizes the time of the machines on a network by using the set of time servers as its reference.</p>
+<h2 id="need-for-time-synchronization">Need for time synchronization</h2>
+<p>Most of us believe that the computer clocks are accurate,being unaware of the fact that the crystal oscillator that is being used in the computer clocks drift each day because it is sensitive to temperature and other things.It is because of this reason there is a necessity for those organizations to synchronize their computers clocks who requires time accuracy nearest to seconds.</p>
+<h2 id="importance-of-time-synchronization">Importance of Time Synchronization</h2>
+<p>In today's era time synchronization plays a critical role in managing or debugging things over the network as each event requires time stamp.Following are the areas where time synchronization is critical:</p>
+<p>1.Transaction Management
+2.Billing Services
+3.Detecting the fault over network</p>
+<h2 id="basic-features-of-ntp">Basic Features of NTP</h2>
+<ul>
+<li>NTP also requires some time reference clock with whose time it can synchronize the clocks of other computers on the netwrok.It uses UTC as reference time.</li>
+<li>NTP selects the best among all defined time servers to get synchronize to.It selects the one from which it is receiving the reply in lesser time(i.e. for whom the roundtrip time is least )</li>
+<li>If the network is temporarily not available then NTP uses previous measurements to get the current time.</li>
+</ul>
+<h2 id="installing-and-configuring-ntp-for-gps-nmea-and-pps">Installing and Configuring NTP for GPS NMEA and PPS</h2>
+<p>To get accurate time, we use the GPS Module Navika100 GPS NMEA messages and 1 PPS signal as inputs and feed it to a NTP server running on the Beaglebone black.</p>
+<p>This page describes how it is done. The overall architecture is like this: NTP runs as a daemon (ntpd). It receives inputs from servers (pool.ntp.org, etc.), and NMEA drivers.</p>
+<h2 id="installing-ntp-and-setting-up-a-ntp-server">Installing NTP and setting up a NTP server</h2>
+<p><code>Note:</code>All commands are executed as root on Beaglebone Black unless mentioned otherwise.</p>
+<h2 id="basic-initial-configuration">Basic initial configuration:</h2>
+<ul>
+<li>BBB should be connected to internet</li>
+<li>BBB should be running debian wheezy</li>
+<li>kernel should have the pps support </li>
+</ul>
+<p>Before configuring GPS with NTP first install the ntp package :</p>
+<p>login as root using</p>
+<pre><code>    $ sudo su
+</code></pre>
+<p>install ntp</p>
+<pre><code>    $ apt-get install ntp
+</code></pre>
+<p>Change the configuration file of ntp on Beaglebone Black to include the servers according to your time zone to obtain the time.</p>
+<pre><code>    $ nano /etc/ntp.conf
+</code></pre>
+<p>Add the ntp server as per your location from NTP Pool Servers.</p>
+<p>If your time zone is Asia and in Asia you are in India then add the following in ntp.conf just after the section where 4 servers from debian are already mentioned and by default commented. Uncomment the first server from that list, to look like this :</p>
+<pre><code>    server 0.debian.pool.ntp.org
+    #server 1.debian.pool.ntp.org iburst
+    #server 2.debian.pool.ntp.org iburst
+    #server 3.debian.pool.ntp.org iburst
+
+    server 0.in.pool.ntp.org
+    server 3.asia.pool.ntp.org
+    server 0.asia.pool.ntp.org
+</code></pre>
+<p>Now Save and exit.</p>
+<p>Restart ntp using</p>
+<pre><code>    $ /etc/init.d/ntp restart
+</code></pre>
+<p>To check the ntp output:</p>
+<pre><code>    $ ntpq -p
+</code></pre>
+<h2 id="configuring-gps-nmea-uart-port-and-pps-gpio-to-work-with-navika-10-gps-module">Configuring GPS NMEA UART port and PPS GPIO to work with Navika 10 GPS Module</h2>
+<p>Go to the following directory for enabling UART port and configuring PPS GPIO</p>
+<pre><code>    cd /lib/firmware
+</code></pre>
+<p>Now ensure that the BBB Vayu overlay is already present in the directory (BBB_VAYU-00A0.dtbo)</p>
+<pre><code>    ls
+</code></pre>
+<p>If it is not present, please download and copy the overlay from here</p>
+<p>Apply the following device tree overlays :</p>
+<pre><code>    $ echo BB-UART4 &gt; /sys/devices/bone_capemgr.9/slots
+    $ echo BBB_VAYU &gt; /sys/devices/bone_capemgr.9/slots
+</code></pre>
+<p>To check that the overlays have been properly applied , do following :</p>
+<p>i. Check slots for device trees implemented</p>
+<pre><code>    $ cat /sys/devices/bone_capemgr.9/slots
+</code></pre>
+<p>The output should be like this :</p>
+<pre><code>    0: 54:PF--- 
+    1: 55:PF--- 
+    2: 56:PF--- 
+    3: 57:PF--- 
+    4: ff:P-O-L Bone-LT-eMMC-2G,00A0,Texas Instrument,BB-BONE-EMMC-2G 
+    5: ff:P-O-L Bone-Black-HDMI,00A0,Texas Instrument,BB-BONELT-HDMI 
+    7: ff:P-O-L Override Board Name,00A0,Override Manuf, BB-UART4
+    8: ff:P-O-L Override Board Name,00A0,Override Manuf, BBB_VAYU
+</code></pre>
+<p>L indicates that the device tree overlay is applied.</p>
+<p>ii To check that PPS GPIO has been configured, check the system log messages and list of devices :</p>
+<pre><code>    $ dmesg
+</code></pre>
+<p>It should show pps pps1: Registered IRQ 171 as PPS source in the messages.</p>
+<p>Now, to read the GPS NMEA packets and see their raw format,do the following :</p>
+<p><code>Note1:</code>Ensure that GPS Antenna has been connected to correct antenna SMA connector.</p>
+<p><code>Note2:</code>GPS Fix Led takes some time before it starts blinking in sync with 1 pps signal.</p>
+<p><code>Note3:</code>For better and faster results, keep GPS antenna under open sky or outdoors. Indoors, GPS antenna may take time to get the sync as well as give accurate NMEA messages.</p>
+<p>Set the following port settings for UART4 to read the GPS NMEA messages</p>
+<pre><code>    $ stty -F /dev/ttyO4 19200 raw
+</code></pre>
+<p>Read the data on the port and output should be something like :</p>
+<pre><code>    $ cat /dev/ttyO4
+
+    $GPGSA,A,3,02,04,12,25,24,05,10,,,,,,02.4,01.1,02.1*07 
+    $GPGLL,2834.2631,N,07720.5426,E,102954.00,A,A*6E 
+    $GPGSV,3,1,07,02,71,345,50,04,40,038,48,12,62,315,47,25,20,321,45*7F 
+    $GPGSV,3,2,07,05,41,167,23,10,48,086,23,24,24,236,30,,,,*48 
+    $GPGSV,3,3,07,,,,,,,,,,,,,,,,*7E
+</code></pre>
+<h2 id="using-xgps-and-gpsd-to-work-with-navika">Using Xgps and Gpsd to work with Navika</h2>
+<p><strong>Using Gpsd</strong></p>
+<p>Gpsd allows a direct connection to a GPS receiver, in this case the Navika module, and collecting NMEA messages directly from the serial port. This enables NMEA messages to be then picked up by multiple clients such as xgps, cgps and also ntpd.</p>
+<ul>
+<li>Check first that Navika is configured correctly and gps data is reaching the /dev/ttyO4 port.<pre><code>cat /dev/ttyO4
+</code></pre>
+</li>
+</ul>
+<p>You should see NMEA messages appearing on stdout.</p>
+<ul>
+<li>Starting GPSD can be done interactively by <pre><code>gpsd /dev/ttyO4 -D 8 -N -b
+</code></pre>
+</li>
+</ul>
+<p><img alt="gps" src="./img/gps.png" /></p>
+<p>Or you may set it up as a service as well to start automatically. Once gpsd starts, clients may connect to gpsd simultaneously.</p>
+<p>For enabling NMEA messages in NTP, add the following to /etc/ntp.conf:</p>
+<pre><code>    server 127.127.28.0 minpoll 4 maxpoll 4
+    fudge 127.127.28.0 time1 0.420 refid GPS
+
+    server 127.127.28.1 minpoll 4 maxpoll 4 prefer
+    fudge 127.127.28.1 refid GPS1
+</code></pre>
+<p>and then restart ntpd.</p>
+<p>To run and see xgps, type</p>
+<pre><code>    xgps
+</code></pre>
+<p>A screenshot is shown below: </p>
+<p><img alt="gps2" src="./img/gps2.png" /></p>
+<p>To run and use cgps, type</p>
+<pre><code>    cgps
+</code></pre>
+<p>A screenshot is shown below: </p>
+<p><img alt="gps3" src="./img/gps3.png" /></p>
+<h2 id="statistics-collection">Statistics collection</h2>
+<p>If statistics collection is enabled in /etc/ntp.conf file, you can see the resultant output logged in peerstats file. This gives both offset and jitter values for each reference clock (including time servers from the ntp.org pool). By looking specifically at the NMEA reference clock, we can get the gps jitter and gps offset values. Separately, it is also possible to compare the effect of pps on the basic gps signal (see Getting PPS and GPS to work with NTP server for details). </p>
+<p><img alt="gps4" src="./img/gps4.png" />       <img alt="gps5" src="./img/gps5.png" /></p>
+<p><img alt="gps6" src="./img/gps6.png" /></p>
+<p>Getting PPS and GPS to work with NTP server</p>
+<p>This procedure requires Kernel with PPS drivers enabled and also PPS configured for GPIO. To ensure that PPS drivers are there in the kernel by following the steps:</p>
+<p>login as root (ignore if you are already at root)
+check in the /dev directory whether pps drivers are there or not</p>
+<pre><code>    $ ls /dev/pps*
+</code></pre>
+<p>you should see pps0 in the list</p>
+<p><code>Note:</code> If pps0 is not present, please follow Add USB and PPS drivers to update the kernel to include PPS drivers.</p>
+<p>Install the following packages</p>
+<pre><code>    $ apt-get install ncurses-dev
+    $ apt-get install bzip2
+    $ apt-get install module-init-tools
+    $ apt-get install initramfs-tools
+    $ apt-get install procps 
+    $ apt-get install fakeroot
+    $ apt-get install zlib1g-dev 
+    $ apt-get install git-core 
+    $ apt-get install libblkid-dev
+    $ apt-get install kernel-package
+</code></pre>
+<p><code>Note:</code> In latest kernel versions, it is possible few packages mentioned above are already installed.</p>
+<p>Obtain the linuxpps userland tools</p>
+<pre><code>    $ cd /usr/src
+    $ git clone git://www.linuxpps.org/git/pps-tools pps-tools
+</code></pre>
+<p>Copy the timepps.h file so ntpd gets built with pps support</p>
+<pre><code>    $ cd /usr/include
+    $ cp /usr/src/pps-tools/timepps.h timepps.h
+</code></pre>
+<p>Build the ppstest tool</p>
+<pre><code>    $ cd /usr/src/pps-tools
+    $ make
+</code></pre>
+<p>Obtain and build ldattach</p>
+<pre><code>    $ cd /usr/src
+    $ mkdir ldattach 
+    $ cd ldattach
+    $ wget http://www.kernel.org/pub/linux/utils/util-linux-ng/v2.14/util-linux-ng-2.14.2.tar.bz2
+    $ tar jxf util-linux-ng-2.14.2.tar.bz2
+    $ cd util-linux-ng-2.14.2
+    $ ./configure
+    $ make
+</code></pre>
+<p><code>Note :</code> If the link http://www.kernel.org/pub/linux/utils/util-linux-ng/v2.14/util-linux-ng-2.14.2.tar.bz2 doesn't work,then try using the link http://www.artfiles.org/kernel.org/pub/linux/utils/util-linux-ng/v2.14/util-linux-ng-2.14.2.tar.bz2. If util-linux is unavailable from both locations, please download the same from here util-linux-ng-2.14.2.tar.bz2.</p>
+<p>Copy ldattach</p>
+<pre><code>    $ cd sys-utils
+    $ cp ldattach /usr/sbin/
+</code></pre>
+<p>Create pps port</p>
+<pre><code>    $ ldattach pps /dev/pps1
+</code></pre>
+<p><code>Note:</code> Ignore any errors here</p>
+<p>Test PPS (pps0 or pps1 )</p>
+<pre><code>    $ cd /usr/src/pps-tools/
+    $ ./ppstest /dev/pps1
+</code></pre>
+<p>The output should be something like this :</p>
+<pre><code>    trying PPS source "/dev/pps1"
+    found PPS source "/dev/pps1"
+    ok, found 1 source(s),now start fetching data...
+    source 0 -assert 1351501153.999956346, sequence: 4781 - clear 0.00000000, sequence: 0
+    source 0 -assert 1351501154.999954601, sequence: 4782 - clear 0.00000000, sequence: 0
+    source 0 -assert 1351501155.999951856, sequence: 4782 - clear 0.00000000, sequence: 0
+</code></pre>
+<p>Note : PPS support can be checked even without the specific hardware by using ktimer which is there in the kernel. It can be checked on /dev/pps0.Therefore,always check the pps data on /dev/pps1 which is coming from the Navika100 module because on /dev/pps0 the pps data would be there even if the Navika100 has not got the GPS fix.</p>
+<p>Now having NTP daemon perform the following steps</p>
+<pre><code>    $ mkdir /usr/src/ntp     (Make a convenient working directory , if you don't already have one)
+    $ cd ntp
+    $ apt-get install libcap-dev
+    $ wget http://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/ntp-4.2/ntp-4.2.6p5.tar.gz
+    $ tar xvfz ntp-4.2.6p5.tar.gz
+    $ cd ntp-4.2.6p5
+    $ ./configure 
+    $ make 
+    $ make install
+</code></pre>
+<p>NMEA reference clock driver directly accesses the serial port. Expects that the port will be numbered /dev/gpsX and /dev/gpsppsX, where X is 0,1,2... Corresponding to each X, it creates a pseudo-ip 127.127.20.X</p>
+<p>So,make the soft links for ntpd to read gps nmea and 1 pps as input</p>
+<pre><code>    $ ln -s /dev/ttyO4 /dev/gps1
+    $ ln -s /dev/pps1 /dev/gpspps1
+</code></pre>
+<p>Configure the ntp.conf file so that ntpd(ntp daemon) can read 1pps and gps data</p>
+<pre><code>    $ nano /etc/ntp.conf
+</code></pre>
+<p>Edit the file as :</p>
+<ol>
+<li>
+<p>Uncomment statsdir /var/log/ntpstats</p>
+</li>
+<li>
+<p>Add the ntp server as per your location from NTP Pool Servers</p>
+</li>
+</ol>
+<p><code>Note:</code> This step is already done in section 2, servers should already be present</p>
+<ol>
+<li>Add support for GPS and PPS ( add them just after the list of servers)<pre><code># NMEA refclock driver directly from serial port
+server 127.127.20.1 mode 47 minpoll 4 iburst prefer true
+fudge 127.127.20.1 flag1 1 flag2 0 flag3 0 flag4 0 time1 0.00 refid GPS
+# ATOM PPS driver directly from interrupt through /dev/pps1
+server 127.127.22.1 mode 47 minpoll 4 maxpoll 4 iburst true
+fudge 127.127.22.1 flag2 0 flag3 0 flag4 1 time1 0.0 refid PPS
+</code></pre>
+</li>
+</ol>
+<p>Save and Exit</p>
+<p><code>Note :</code> The direct serial port driver 20.0 or 20.1 from NMEA are different from 127.127.28.1 the one mentioned above.</p>
+<p>Now, edit the following file:</p>
+<pre><code>    $ nano /etc/init.d/ntp
+</code></pre>
+<p>Edit PATH in the file to add /usr/local/bin to look like :</p>
+<pre><code>    PATH=/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+</code></pre>
+<p>And change the path of DAEMON to following :</p>
+<pre><code>    DAEMON=/usr/local/bin/ntpd
+</code></pre>
+<p>Save and Exit</p>
+<p>Commands for NTP server</p>
+<pre><code>    $ service ntp start           
+    $ service ntp stop            
+    $ service ntp restart
+</code></pre>
+<p>To check whether ntpd is working with GPS NMEA and PPP or not :</p>
+<pre><code>    $ ntpq -p
+</code></pre>
+<p>The output should be something like :</p>
+<pre><code>      remote           refid      st t when poll reach   delay   offset  jitter
+
+    -120-88-47-10.in 103.1.106.69     2 u   43   64  377   51.624  537.091   1.517
+    +27.114.150.13   130.133.1.10     2 u   36   64  377  222.386  481.023   0.583
+    +77.235.14.49    131.188.3.220    2 u   41   64  377  284.982  510.672   1.408
+    *GPS_NMEA(1)     .GPS.            0 l   10   16  377    0.000    1.996   0.204
+    oPPS(1)          .PPS.            0 l    9   16  377    0.000  -469.94   0.191
+</code></pre>
+<p>Note:</p>
+<p>1.If GPS_NMEA(1) and PPS(1) are not visible in the list of servers as shown above, just restart the NTP Server.
+2.The '*' in front of GPS shows that the peer has been declared the system peer and lends its variables to the system variables.
+3.The 'o' shows that the peer has been declared the system peer and lends its variables to the system variables. However,the actual system synchronization is derived from a pulse-per-second(PPS) signal,either indirectly via the PPS reference clock or directly via kernel interface.</p>
+<p>As soon as the ntp gets synchronized with the pps the jitter in the time starts decreasing and becomes stable after some time. </p>
+<p>Showing the Jitter and Offset of 1PPS when NTP gets synchronized with it</p>
+<p><img alt="gps7" src="./img/gps7.png" /></p>
+<h2 id="note-on-ntpd-and-its-settings">Note on NTPd and its settings</h2>
+<p>NTPd is certainly not the only way to use the GPS and PPS inputs although it is indeed pretty good. Considering the number of knobs it has, one must understand its workings to get good results. The settings used in /etc/ntp.conf are crucial in deciding this and can take quite a lot of effort to set up properly. If you're using ntpd, it is better to use the ntp clock discipline instead of the kernel discipline. Also, choosing the right time server is important as the offset and jitter of the external time server clock take a long time to be mitigated locally. These points become clear if you carefully study the following figures for some long term data as ntpd slowly settles.</p>
+<p><img alt="gps8" src="./img/gps8.png" />       <img alt="gps9" src="./img/gps9.png" />         <img alt="gps10" src="./img/gps10.png" /></p>
+              
+            </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+	  
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+<div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+      
+    </span>
+</div>
+
+</body>
+</html>
+
+<!--
+MkDocs version : 0.15.3
+Build Date UTC : 2016-07-19 16:36:11.461718
+-->
